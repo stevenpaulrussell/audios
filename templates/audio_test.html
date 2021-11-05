@@ -1,0 +1,12 @@
+<html>
+    <header>
+        <title> Simplest audio test </title>
+    </header>
+    <body>
+        <p>{{data_items.text}}</p>
+        <p>url: {{data_items.url}}</p>
+        <p>Hint: {{data_items.hint}}</p>
+        <audio id="audio_test_item" src="{{data_items.url}}"></audio>
+        <button type=button  onclick="document.getElementById('audio_test_item').play()">Play!</button>
+    </body>
+</html>
