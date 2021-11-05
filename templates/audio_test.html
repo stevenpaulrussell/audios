@@ -3,10 +3,11 @@
         <title> Simplest audio test </title>
     </header>
     <body>
-        <p>{{data_items.text}}</p>
-        <p>url: {{data_items.url}}</p>
-        <p>Hint: {{data_items.hint}}</p>
+        <p>Purpose --> Trying to find some audio recorder for iPhone that can play using jscript on an iPad! <--</p>
+        <p>Comment for this trial: {{data_items.text}}</p>
+        <p>Media hint for button below: "{{data_items.hint}}"</p>
         <audio id="audio_test_item" src="{{data_items.url}}"></audio>
-        <button type=button  onclick="document.getElementById('audio_test_item').play()">Play!</button>
+        <button type=button  onclick="document.getElementById('audio_test_item').play()">Play.. does it?</button>
+        <p>Url is "{{data_items.url}}"</p>
     </body>
 </html>
