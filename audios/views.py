@@ -45,9 +45,10 @@ def cleaner(request):
     media_quantity_as_string = postdata["NumMedia"]
     if media_quantity_as_string != '1':
         error_message =  HttpResponse(content=f'<Response><Message>Please send one audio file. Got {media_quantity_as_string} files.</Message></Response>')
+    else:
         media_hint = postdata['MediaContentType0']
         media_type  = media_hint.split('/')[0]
         media_url = postdata['MediaUrl0']
-    if media_type != 'audio':
-        error_message =  HttpResponse(content=f'<Response><Message>This test site does not use {media_type} files. Please send audio only.</Message></Response>')
-    return error_message, from_tel, to_tel, text, media_type, media_hint, media_url
+        if media_type != 'audio':
+            error_message =  HttpResponse(content=f'<Response><Message>This test site does not use {media_type} files. Please send audio only.</Message></Response>')
+        return error_message, from_tel, to_tel, text, media_type, media_hint, media_url
