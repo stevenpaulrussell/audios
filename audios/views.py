@@ -15,7 +15,7 @@ def try_recent_audio(request):
 @csrf_exempt
 def accept_media(request):
     try:
-        error_message, from_tel, to_tel, text, media_type, media_hint, media_url = cleaner(request)
+        error_message, text, media_hint, media_url = cleaner(request)
         if error_message:
             return error_message
         else:
@@ -27,6 +27,7 @@ def accept_media(request):
             return HttpResponse(content=f"<Response><Message>'Received type {media_hint}'</Message></Response>")  
     except Exception as E:
         return HttpResponse(content=f"<Response><Message>Have a problem {repr(E)}. Contact Steve</Message></Response>")  
+        
 
 
 def cleaner(request):
@@ -45,10 +46,11 @@ def cleaner(request):
     media_quantity_as_string = postdata["NumMedia"]
     if media_quantity_as_string != '1':
         error_message =  HttpResponse(content=f'<Response><Message>Please send one audio file. Got {media_quantity_as_string} files.</Message></Response>')
+        return error_message, text, ' ', ' '
     else:
         media_hint = postdata['MediaContentType0']
         media_type  = media_hint.split('/')[0]
         media_url = postdata['MediaUrl0']
         if media_type != 'audio':
             error_message =  HttpResponse(content=f'<Response><Message>This test site does not use {media_type} files. Please send audio only.</Message></Response>')
-        return error_message, from_tel, to_tel, text, media_type, media_hint, media_url
+        return error_message, text, media_hint, media_url
