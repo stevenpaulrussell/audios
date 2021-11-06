@@ -24,7 +24,8 @@ def accept_media(request):
             needed.url = media_url
             needed.hint = media_hint
             needed.save()
-            return HttpResponse(content=f"<Response><Message>'Received type {media_hint}'</Message></Response>")  
+            message = f'Received type {media_hint}. See at https://salty-plains-25907.herokuapp.com/'
+            return HttpResponse(content=f"<Response><Message>'{message}'</Message></Response>")  
     except Exception as E:
         return HttpResponse(content=f"<Response><Message>Have a problem {repr(E)}. Contact Steve</Message></Response>")  
         
