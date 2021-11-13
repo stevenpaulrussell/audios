@@ -8,10 +8,23 @@ from .models import Audios
 
 
 def try_recent_audio(request):
-    working_example = Audios.objects.get(pk=1)
-    to_test = Audios.objects.get(pk=2)
-    data_items = ['to_test': to_test, 'working_example': working_example}
-    return render(request, 'audio_test.html', {'data_items': data_items})
+    example_audio = Audios.objects.get(pk=1)
+    working_example = {}
+    working_example['profile_photo_url'] = ''
+    working_example['card_image_url'] = ''
+    working_example['card_audio_url'] = example_audio.url
+    working_example['card_audio_hint'] = example_audio.hint
+
+    test_audio = Audios.objects.get(pk=2)
+    to_test = {}
+    to_test['profile_photo_url'] = ''
+    to_test['card_image_url'] = ''
+    to_test['card_audio_url'] = test_audio.url
+    to_test['card_audio_hint'] = test_audio.hint
+    to_test['text'] = test_audio.text
+
+    data_items = {'to_test': to_test, 'working_example': working_example}
+    return render(request, 'audio_test2.html', {'data_items': data_items})
 
 @csrf_exempt
 def accept_media(request):
