@@ -1,0 +1,88 @@
+<html>
+<header>
+    <title>Display in "BETA!". </title>
+    <style>
+        body, html {
+            height: 100%;
+            background-color: black;
+        }
+        p {color:white} 
+        img {
+            border: 5px solid lightgray;
+            border-radius: 30px;
+            padding: 3px 3px 3px 3px;
+            margin: 25px 25px 25px 25px;
+            height: auto;
+            width: 20%;
+        }
+        .postcard_image {
+            border: 1px solid black;
+            border-radius: 1px;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 0px 0px 0px;
+            position: absolute;
+            height: 100%;
+            width: auto;
+        }
+    </style>
+</header>
+<body>
+    <p>Guide and Instructions</p>
+    <p>Text from test message</p>
+    <p>The display auto-refreshes after audio play finishes or --> after 30 sec <--.   </p>
+    <button type="button" onclick="play_ended()" style="height:40px; width:80px; color:tomato">REFRESH</button>
+    <p>Push REFRESH in case of a hang.</p>
+
+    <p>Comment for this trial: {{data_items.to_test.text}}</p>
+    <p>Media hint for button below: "{{data_items.to_test.hint}}"</p>
+    <p>Url to audio is, "{{data_items.to_test.url}}"</p>
+
+
+    <audio id="audio_to_test"  onplay="profile_clicked('to_test')" onended="play_ended('to_test')">
+        <source src="{{data_items.to_test.card_audio_url}}" />
+    </audio>
+    <img 
+        id="to_test"
+        postcard_audio_id="audio_to_test"
+        src="{{data_items.to_test.profile_photo_url}}"
+        profile_image="{{data_items.to_test.profile_photo_url}}"
+        postcard_image="{{data_items.to_test.card_image_url}}"
+        onClick="document.getElementById('audio_to_test').play()"
+        alt="image for to_test"
+    />
+
+    <audio id='audio_working_example'  onplay="profile_clicked('working_example')" onended="play_ended('working_example')">
+        <source src="{{data_items.working_example.card_audio_url}}" />
+    </audio>
+    <img 
+        id="working_example"
+        postcard_audio_id="{{data_items.working_example.postcard_audio_id}}"
+        src="{{data_items.working_example.profile_photo_url}}"
+        profile_image="{{data_items.working_example.profile_photo_url}}"
+        postcard_image="{{data_items.working_example.card_image_url}}"
+        onClick="document.getElementById('audio_working_example').play()"
+        alt="image for working_example"
+    />
+
+        <script>
+            const profile_clicked = function(which_example) {
+                my_postcard = document.getElementById(which_example);
+                my_postcard.src = my_postcard.getAttribute('postcard_image');
+                my_postcard.className = "postcard_image";
+                my_postcard.watchdog_for_play_fail = setTimeout(watchdog_reloads, 30*1000, 'Timeout before play_ended.');
+            }
+            const play_ended = function(which_example) {
+                console.log('In play_ended! for', which_example);
+                my_postcard = document.getElementById(which_example);
+                watchdog_for_play_fail = my_postcard.getAttribute('watchdog_for_play_fail');
+                clearTimeout(watchdog_for_play_fail);
+                document.location.reload();
+            }
+            const watchdog_reloads = function(reason) {
+                console.log('In watchdog_reloads!', reason);
+                document.location.reload();
+                return false;
+            }
+        </script>
+</body>
+</html>
