@@ -14,7 +14,7 @@ def try_recent_audio(request):
     working_example['card_image_url'] = 'https://www.pexels.com/photo/woman-standing-on-a-podium-6172613/'
     working_example['card_audio_url'] = example_audio.url
     working_example['card_audio_hint'] = example_audio.hint
-    to_test['text'] = 'This from Android App "Hi-Q MP3 Recorder running 96 kbps recording MP3'
+    working_example['text'] = 'This from Android App "Hi-Q MP3 Recorder running 96 kbps recording MP3'
 
     test_audio = Audios.objects.get(pk=2)
     to_test = {}
