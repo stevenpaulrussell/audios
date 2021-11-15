@@ -33,6 +33,11 @@
     <button type="button" onclick="play_ended()" style="height:40px; width:80px; color:tomato">REFRESH</button>
     <p>Push REFRESH in case of a hang.</p>
 
+    <p>Comment for this trial: {{data_items.to_test.text}}</p>
+    <p>Media hint for button below: "{{data_items.to_test.hint}}"</p>
+    <p>Url to audio is, "{{data_items.to_test.url}}"</p>
+
+
     <audio id="audio_to_test"  onplay="profile_clicked('audio_to_test')" onended="play_ended('audio_to_test')">
         <source src="{{data_items.to_test.card_audio_url}}" />
     </audio>
