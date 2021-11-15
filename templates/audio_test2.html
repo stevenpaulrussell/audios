@@ -38,7 +38,7 @@
     <p>Url to audio is, "{{data_items.to_test.url}}"</p>
 
 
-    <audio id="audio_to_test"  onplay="profile_clicked('audio_to_test')" onended="play_ended('audio_to_test')">
+    <audio id="audio_to_test"  onplay="profile_clicked('to_test')" onended="play_ended('to_test')">
         <source src="{{data_items.to_test.card_audio_url}}" />
     </audio>
     <img 
@@ -48,9 +48,10 @@
         profile_image="{{data_items.to_test.profile_photo_url}}"
         postcard_image="{{data_items.to_test.card_image_url}}"
         onClick="document.getElementById('audio_to_test').play()"
+        alt="image for to_test"
     />
 
-    <audio id='audio_working_example'  onplay="profile_clicked('audio_working_example')" onended="play_ended('audio_working_example')">
+    <audio id='audio_working_example'  onplay="profile_clicked('working_example')" onended="play_ended('working_example')">
         <source src="{{data_items.working_example.card_audio_url}}" />
     </audio>
     <img 
@@ -60,18 +61,19 @@
         profile_image="{{data_items.working_example.profile_photo_url}}"
         postcard_image="{{data_items.working_example.card_image_url}}"
         onClick="document.getElementById('audio_working_example').play()"
+        alt="image for working_example"
     />
 
         <script>
-            const profile_clicked = function(postcard_sender) {
-                my_postcard = document.getElementById(postcard_sender);
+            const profile_clicked = function(which_example) {
+                my_postcard = document.getElementById(which_example);
                 my_postcard.src = my_postcard.getAttribute('postcard_image');
                 my_postcard.className = "postcard_image";
                 my_postcard.watchdog_for_play_fail = setTimeout(watchdog_reloads, 30*1000, 'Timeout before play_ended.');
             }
-            const play_ended = function(postcard_sender) {
-                console.log('In play_ended!');
-                my_postcard = document.getElementById(postcard_sender);
+            const play_ended = function(which_example) {
+                console.log('In play_ended! for', which_example);
+                my_postcard = document.getElementById(which_example);
                 watchdog_for_play_fail = my_postcard.getAttribute('watchdog_for_play_fail');
                 clearTimeout(watchdog_for_play_fail);
                 document.location.reload();
